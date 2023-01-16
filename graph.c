@@ -103,6 +103,8 @@ void insert_node_cmd(pnode *head)
     }
     else
     {
+           if(node_c->edges != NULL)
+    {
         pedge edge_r = node_c->edges;
         while (edge_r != NULL)
         {
@@ -110,7 +112,8 @@ void insert_node_cmd(pnode *head)
             free(edge_r);
             edge_r = temp;
         }
-        node_c->edges = NULL;
+    }
+    node_c->edges = NULL;
     }
 
     pedge *insert_edge = &(node_c->edges);
