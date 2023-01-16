@@ -23,10 +23,14 @@ int weight=0; //global weight for tsp
 /*
 uses the free() function to deallocate the memory allocated to the current node.
 */
-void delete_list(pdijk list) {
-    for (pdijk curr_n = list; curr_n != NULL; curr_n = list) {
+void delete_list(pdijk list)
+{
+     pdijk curr_n = list;
+    while (curr_n != NULL)
+    {
         list = list->next;
         free(curr_n);
+        curr_n = list;
     }
 }
 /*
@@ -189,10 +193,11 @@ including weight and the length of the TSP (len). It then dynamically allocates 
   The function then returns the final weight.
 */
 
-int TSP_cmd(pnode head){   
-     weight = INF;
-	  int len = 0;
-     graph = head;
+int TSP_cmd(pnode head)
+{   
+    weight = INF;
+    int len = 0;
+    graph = head;
     scanf("%d", &len);
     int *arr = (int *)(calloc(len, sizeof(int)));
     if(arr==NULL)
