@@ -103,7 +103,7 @@ void insert_node_cmd(pnode *head)
     }
     else
     {
-           if(node_c->edges != NULL)
+        if(node_c->edges != NULL)
     {
         pedge edge_r = node_c->edges;
         while (edge_r != NULL)
