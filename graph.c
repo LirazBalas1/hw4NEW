@@ -145,44 +145,40 @@ void insert_node_cmd(pnode *head)
         insert_edge = &((*insert_edge)->next);
     }
 }
-void delete_node_cmd(pnode *head)
+void delete_node(pnode *head, int data)
 {
-    int data;
-    scanf("%d", &data);
-    pnode temp = *head;
-    if ((*head)->node_num == data)
+    if (head == NULL)
     {
-        pnode temp = *head;
-        *head = (*head)->next;
-        free(temp);
         return;
     }
+    pnode temp = *head;
+    pnode prev = NULL;
     while (temp != NULL)
     {
-        if (temp->edges != NULL && temp->edges->dest->node_num == data)
+        if (temp->node_num == data)
         {
-            pedge edge_to_remove = temp->edges;
-            temp->edges = temp->edges->next;
-            free(edge_to_remove);
+            if (prev != NULL)
+            {
+                prev->next = temp->next;
+            }
+            else
+            {
+                *head = temp->next;
+            }
+            pedge edge_temp = temp->edges;
+            while (edge_temp != NULL)
+            {
+                pedge edge_next = edge_temp->next;
+                free(edge_temp);
+                edge_temp = edge_next;
+            }
+            // Free the memory allocated for the node
+            free(temp);
+            return;
         }
+
+        prev = temp;
         temp = temp->next;
-    }
-    pnode temp2 = *head;
-    pnode next = *head;
-    next = temp2->next;
-    while (next)
-    {
-        if (next->node_num == data)
-        {
-            temp2->next = next->next;
-            free(next);
-            next = temp2->next;
-        }
-        else
-        {
-            temp2 = next;
-            next = temp2->next;
-        }
     }
 }
 void printGraph_cmd(pnode head)
